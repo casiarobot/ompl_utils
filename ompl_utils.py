@@ -69,6 +69,7 @@ def get_trajectory(constraints, start_state, goal_state, start_rotation=[0,0,0,1
     start[4] = start_rotation[1]
     start[5] = start_rotation[2]
     start[6] = start_rotation[3]
+
     # Create the goal state
     goal = ob.State(space)
     goal.random()
