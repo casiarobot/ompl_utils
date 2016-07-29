@@ -65,6 +65,7 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
     start[0] = start_state[0]
     start[1] = start_state[1]
     start[2] = start_state[2]
+    print state
 
     # Create the goal state
     goal = ob.State(space)
@@ -72,6 +73,7 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
     goal[0] = goal_state[0]
     goal[1] = goal_state[1]
     goal[2] = goal_state[2]
+    print goal
 
     # Compute a trajectory using the default parameters
     ss.setStartAndGoalStates(start, goal)
@@ -83,7 +85,6 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
         length = path.getStateCount()
         lst = []
         print "Solution found with length ", length
-        print path
         for i in range(length):
             lst.append([path.getState(i).getX(), path.getState(i).getY(), path.getState(i).getZ()])
         return np.matrix(lst)
