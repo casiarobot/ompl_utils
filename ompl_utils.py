@@ -83,10 +83,9 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
         length = path.getStateCount()
         lst = []
         print "Solution found with length ", length
-        return ss.getSolutionPath().printAsMatrix()[:,:3]
         for i in range(length):
             lst.append([path.getState(i).getX(), path.getState(i).getY(), path.getState(i).getZ()])
-        return lst
+        return np.matrix(lst)
     print "No solution found"
     return None
 
