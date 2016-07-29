@@ -40,7 +40,7 @@ def valid_fn(constraints):
     """
     return lambda state: not any([constraint(state.getX(), state.getY(), state.getZ()) for constraint in constraints])
 
-def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_bounds=5, t=1.0):
+def get_trajectory(constraints, start_state, goal_state, start_rotation=[0,0,0,1], goal_rotation=[0,0,0,1], min_bounds=-5, max_bounds=5, t=1.0):
     """
     Takes in a list of constraints, a start, a goal, bounds, and a maximum computation time, and returns a list of points that form a trajectory to the goal, or None if no such trajectory is found.
     """
@@ -65,15 +65,20 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
     start[0] = start_state[0]
     start[1] = start_state[1]
     start[2] = start_state[2]
-    print state
-
+    start[3] = start_rotation[0]
+    start[4] = start_rotation[1]
+    start[5] = start_rotation[2]
+    start[6] = start_rotation[3]
     # Create the goal state
     goal = ob.State(space)
     goal.random()
     goal[0] = goal_state[0]
     goal[1] = goal_state[1]
     goal[2] = goal_state[2]
-    print goal
+    goal[3] = goal_rotation[0]
+    goal[4] = goal_rotation[1]
+    goal[5] = goal_rotation[2]
+    goal[6] = goal_rotation[3]
 
     # Compute a trajectory using the default parameters
     ss.setStartAndGoalStates(start, goal)
@@ -86,7 +91,8 @@ def get_trajectory(constraints, start_state, goal_state, min_bounds=-5, max_boun
         lst = []
         print "Solution found with length ", length
         for i in range(length):
-            lst.append([path.getState(i).getX(), path.getState(i).getY(), path.getState(i).getZ()])
+            lst.append([path.getState(i).getX(), path.getState(i).getY(), path.getState(i).getZ(), path.getState(i).rotation().x, path.getState(i).rotation().y, path.getState(i).rotation().z, path.getState(i).rotation().w])
+            print path.getState(i).rotation().x
         return np.matrix(lst)
     print "No solution found"
     return None
