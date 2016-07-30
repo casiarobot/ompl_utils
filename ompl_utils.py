@@ -86,7 +86,7 @@ def get_trajectory(constraints, start_state, goal_state, start_rotation=[0,0,0,1
     solved = ss.solve(t)
 
     if solved:
-        ss.simplifySolution()
+        ss.simplifySolution(t)
         path = ss.getSolutionPath()
         length = path.getStateCount()
         lst = []
