@@ -92,8 +92,9 @@ def get_trajectory(constraints, start_state, goal_state, start_rotation=[0,0,0,1
         lst = []
         print "Solution found with length ", length
         for i in range(length):
-            lst.append([path.getState(i).getX(), path.getState(i).getY(), path.getState(i).getZ(), path.getState(i).rotation().x, path.getState(i).rotation().y, path.getState(i).rotation().z, path.getState(i).rotation().w])
-            print path.getState(i).rotation().x
+            state = path.getState(i)
+            rotation = path.getState(i).rotation()
+            lst.append([state.getX(), state.getY(), state.getZ(), rotation.x, rotation.y, rotation.z, rotation.w])
         return np.matrix(lst)
     print "No solution found"
     return None
